@@ -5,14 +5,53 @@ import getpass
 import MySQLdb
 
 #Download and print data
-def doQuery( conn ):
-    cur = conn.cursor()
+def check(database, h_ash ):
 
-    cur.execute("SELECT * FROM test")
-    rows = cur.fetchall()
+    cursor = database.cursor()
+
+    cursor.execute("SELECT * FROM users")
+    rows = cursor.fetchall()
 
     for row in rows:
         print row
+
+    print "DATABASE HASH:"
+    print row[3]
+    print "CARD HASH:"
+    print h_ash
+    print "AAAAAAAAAAAAAAAAA"
+
+    if h_ash == row[3]:
+        print "Access granted!"
+    else:
+        print "Access denied!"
+
+    cursor.execute("""SELECT * FROM users;""")
+    print cursor.fetchall()
+
+#Write to database
+def writeToDatabase(database,name, surrname,h_ash):
+
+    add_user = ("INSERT INTO users "
+                "name"
+                "VALUES (%s)"
+                )
+
+    user_data = 2
+
+    cursor = database.cursor()
+    #Database.execute("DROP TABLE IF EXISTS users")
+    try:
+        #Database.execute("""INSERT INTO test VALUES (%s,%s,%s)""",(name, surrname, h_ash))
+        cursor.execute(add_user, user_data)
+        database.commit()
+        print 'Success'
+    except:
+        database.rollback()
+        print 'Error'
+
+    cursor.execute("""SELECT * FROM users;""")
+    print cursor.fetchall()
 
 
 #Try to connect to database
@@ -20,8 +59,9 @@ def connectToDB(hostname, username, password, database, port):
 
     try:
         myC = MySQLdb.connect(host = hostname, user = username, passwd = password, db = database, port = port )
-        doQuery(myC)
-        myC.close()
+        return myC
+        #check(myC)
+        #myC.close()
     except MySQLdb.Error, e:
         print "MySQL Error: %s \n" % str(e)
         return 1

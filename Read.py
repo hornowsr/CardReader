@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 
-import RPi.GPIO as GPIO
-import MFRC522
-import signal
+import Hash
+import db
 
-def Read(continue_reading, MIFAREReader):
+def Read(continue_reading, MIFAREReader, database):
 
     cont = continue_reading
 
@@ -25,7 +24,7 @@ def Read(continue_reading, MIFAREReader):
         if status == MIFAREReader.MI_OK:
             cont = False
             # Print UID
-            print "Card read UID: "+str(uid[0])+","+str(uid[1])+","+str(uid[2])+","+str(uid[3])+","+str(uid[4])
+            #print "Card read UID: "+str(uid[0])+","+str(uid[1])+","+str(uid[2])+","+str(uid[3])+","+str(uid[4])
 
             # This is the default key for authentication
             key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
@@ -38,13 +37,16 @@ def Read(continue_reading, MIFAREReader):
 
             # Check if authenticated
             if status == MIFAREReader.MI_OK:
-                MIFAREReader.MFRC522_Read(8)
+                cardID = MIFAREReader.MFRC522_Read(8)
                 MIFAREReader.MFRC522_StopCrypto1()
             else:
                 print "Authentication error"
 
 
             #Connect to database and check
+            h_ash = Hash.hashData(cardID)
+
+            db.check(database, h_ash)
 
             print "--- Finished ---"
             return uid

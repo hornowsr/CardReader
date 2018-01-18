@@ -8,7 +8,6 @@ import time
 import Read
 import Write
 import db
-import Hash
 import sys
 
 continue_reading = True
@@ -51,40 +50,36 @@ while loop:
     if eCode == 1:
             sys.exit()
     else:
-
         print 'Connection established!\n\n'
         #Print main menu
-        printmenu()
-        choice = input("Enter your choice[0-5]:\n")
-        continue_reading = True
-        if choice == 1:
-            print "Option 1 was selected"
-            print "Please place the card near the reader\n"
-            #Read function. Waiting for card to read
-            uid = Read.Read(continue_reading, MIFAREReader)
-            for x in uid:
-                print x
-            print "\n"
-            h_ash = Hash.hashData(uid)
-            print h_ash
-            time.sleep(2)
+        while loop:
+            printmenu()
+            choice = input("Enter your choice[0-5]:")
+            continue_reading = True
+            if choice == 1:
+                print "Option 1 was selected"
+                print "Please place the card near the reader\n"
+                #Read function. Waiting for card to read
+                uid = Read.Read(continue_reading, MIFAREReader, eCode)
 
-        elif choice == 2:
-            print "Option 2 was selected"
-            print "Please place the card near the reader"
+                time.sleep(2)
 
-            Write.Write(continue_reading, MIFAREReader)
-            print "\n"
-            time.sleep(2)
+            elif choice == 2:
+                print "Option 2 was selected"
+                print "Please place the card near the reader"
 
-        elif choice == 3:
-            print ""
-        elif choice == 4:
-            print ""
-        elif choice == 5:
-            print "Option 5 was selected"
-            db.collectData()
-        elif choice == 0:
-            loop = False
-        else:
-            raw_input("Wrong option was selected. Enter any key to try again..")
+                Write.Write(continue_reading, MIFAREReader)
+                print "\n"
+                time.sleep(2)
+
+            elif choice == 3:
+                db.writeToDatabase(eCode,'alek', 'bolek', 'asdasdasd')
+            elif choice == 4:
+                print ""
+            elif choice == 5:
+                print "Option 5 was selected"
+                db.collectData()
+            elif choice == 0:
+                loop = False
+            else:
+                raw_input("Wrong option was selected. Enter any key to try again..")
