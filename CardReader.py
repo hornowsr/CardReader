@@ -6,8 +6,8 @@ import MFRC522
 import signal
 import time
 import Read
-import Dump
 import Write
+import db
 
 continue_reading = True
 
@@ -31,7 +31,7 @@ def printmenu():
     print "2. Reset card"
     print "3. Add user"
     print "4. Delete user"
-    print "5. Load DATABASE"
+    print "5. Connec to to DATABASE"
     print "0. Exit"
     print 67 * "-"
 
@@ -40,7 +40,7 @@ loop = True
 
 while loop:
     printmenu()
-    choice = input("Enter your choice[1-5]:\n")
+    choice = input("Enter your choice[0-5]:\n")
     continue_reading = True
     if choice == 1:
         print "Option 1 was selected"
@@ -63,7 +63,8 @@ while loop:
     elif choice == 4:
         print ""
     elif choice == 5:
-        print ""
+        print "Option 5 was selected"
+        db.connectDB()
     elif choice == 0:
         loop = False
     else:
