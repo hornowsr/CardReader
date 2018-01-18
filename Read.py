@@ -25,7 +25,7 @@ def Read(continue_reading, MIFAREReader):
         if status == MIFAREReader.MI_OK:
             cont = False
             # Print UID
-            print "Card read UID: "+str(uid[0])+","+str(uid[1])+","+str(uid[2])+","+str(uid[3])
+            print "Card read UID: "+str(uid[0])+","+str(uid[1])+","+str(uid[2])+","+str(uid[3])+","+str(uid[4])
 
             # This is the default key for authentication
             key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
@@ -43,4 +43,8 @@ def Read(continue_reading, MIFAREReader):
             else:
                 print "Authentication error"
 
+
+            #Connect to database and check
+
             print "--- Finished ---"
+            return uid
