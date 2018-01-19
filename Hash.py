@@ -2,20 +2,20 @@
 # -*- coding: utf8 -*-
 
 import hashlib
-import uuid
 
 #Hash data
 def hashData(UID):
-    #uuid is used to generate a random number
-    salt = uuid.uuid4().hex
-#    uid = 0
-#    for x in UID:
-#        uid += x
-    uid = str(UID)
+	#uuid is used to generate a random number
+	#salt = uuid.uuid4().hex
+	salt = str(1)
+#	uid = 0
+#	for x in UID:
+# 		uid += x
+	uid = str(UID)
 
-    return hashlib.sha256(salt.encode() + uid.encode()).hexdigest() + ':' + salt
+	return hashlib.sha256(salt.encode() + uid.encode()).hexdigest() + ':' + salt
 
 def checkData(hashedUID, UID):
 
-    uid , salt = hashedUID.split(':')
-    return uid == hashlib.sha256(salt.encode() + UID.encode()).hexdigest()
+	uid , salt = hashedUID.split(':')
+	return uid == hashlib.sha256(salt.encode() + UID.encode()).hexdigest()
