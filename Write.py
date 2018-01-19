@@ -72,4 +72,4 @@ def Write(continue_reading, MIFAREReader):
 			else:
 				print "Authentication error"
 
-			print "--- Finished ---"
+			print 30 * "-" , "FiNISHED" , 30* "-"

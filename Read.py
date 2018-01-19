@@ -7,7 +7,7 @@ import db
 def Read(continue_reading, MIFAREReader, database):
 
 	cont = continue_reading
-
+	print "Please place the card near the reader\n"
 	while cont:
 
 		# Scan for cards
@@ -43,7 +43,7 @@ def Read(continue_reading, MIFAREReader, database):
 				print "Authentication error"
 
 			h_ash = Hash.hashData(cardID)
-			print "--- Finished ---"
+			print 30 * "-" , "FINISHED READING" , 30* "-"
 			return h_ash
 
 #Check data with database

@@ -33,7 +33,8 @@ def printmenu():
 	print "2. Reset card"
 	print "3. Add user"
 	print "4. Delete user"
-	print "5. Connect to to DATABASE"
+	print "5. Update user"
+	print "6. Print database"
 	print "0. Exit"
 	print 67 * "-"
 
@@ -58,8 +59,8 @@ while loop:
 			choice = input("Enter your choice[0-5]:")
 			continue_reading = True
 			if choice == 1:
-				print "Option 1 was selected"
-				print "Please place the card near the reader\n"
+				print 30 * "-" , "OPTION1 SELECTED" , 30* "-"
+
 				#Read function. Waiting for card to read
 				h_ash = Read.Read(continue_reading, MIFAREReader, eCode)
 				Read.checkCardWithDatabase(eCode, h_ash)
@@ -67,7 +68,7 @@ while loop:
 				time.sleep(2)
 
 			elif choice == 2:
-				print "Option 2 was selected"
+				print 30 * "-" , "OPTION2 SELECTED" , 30* "-"
 				print "Please place the card near the reader"
 
 				Write.Write(continue_reading, MIFAREReader)
@@ -75,13 +76,17 @@ while loop:
 				time.sleep(2)
 
 			elif choice == 3:
+				print 30 * "-" , "OPTION3 SELECTED" , 30* "-"
 				User.addUser(continue_reading, MIFAREReader, eCode)
 			elif choice == 4:
-				print ""
-				db.createTable(eCode)
+				print 30 * "-" , "OPTION4 SELECTED" , 30* "-"
+				User.deleteUser(eCode)
+			elif choice == 6:
+				print 30 * "-" , "OPTION5 SELECTED" , 30* "-"
+				db.printDatabase(eCode)
 			elif choice == 5:
-				print "Option 5 was selected"
-				db.collectData()
+				print 30 * "-" , "OPTION6 SELECTED" , 30* "-"
+				User.updateUserData(continue_reading, MIFAREReader,eCode)
 			elif choice == 0:
 				loop = False
 			else:

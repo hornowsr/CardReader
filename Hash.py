@@ -8,9 +8,6 @@ def hashData(UID):
 	#uuid is used to generate a random number
 	#salt = uuid.uuid4().hex
 	salt = str(1)
-#	uid = 0
-#	for x in UID:
-# 		uid += x
 	uid = str(UID)
 
 	return hashlib.sha256(salt.encode() + uid.encode()).hexdigest() + ':' + salt
