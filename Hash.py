@@ -12,7 +12,8 @@ def hashData(UID):
 
 	return hashlib.sha256(salt.encode() + uid.encode()).hexdigest() + ':' + salt
 
+#Check current hased card data with database hash
 def checkData(hashedUID, UID):
 
-	uid , salt = hashedUID.split(':')
+	uid, salt = hashedUID.split(':')
 	return uid == hashlib.sha256(salt.encode() + UID.encode()).hexdigest()
